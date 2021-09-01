@@ -1,7 +1,10 @@
 import Header from './components/Header'
+import Footer from './components/Footer'
 import { useState, useEffect } from 'react';
 import Tasks from './components/Tasks'
+import About from './components/About'
 import AddTask from './components/AddTask'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 
 /* events are stored in the App.js */
@@ -100,11 +103,19 @@ const App = () => {
   }
 
   return (
-    <div className="container">
-      <Header onClick={toggleAddTask} showPropAddTask={showAddTask} />
-      {showAddTask && <AddTask onAdd={addTask} />}
-      {tasks.length > 0 ? <Tasks tasks={tasks} onToggle={toggleReminder} onDelete={deleteTask} /> : <h3>No Tasks to show</h3>}
-    </div>
+    <Router>
+      <div className="container">
+        <Header onClick={toggleAddTask} showPropAddTask={showAddTask} />
+        {/* {showAddTask && <AddTask onAdd={addTask} />}
+        {tasks.length > 0 ? <Tasks tasks={tasks} onToggle={toggleReminder} onDelete={deleteTask} /> : <h3>No Tasks to show</h3>} */}
+        <Route path='/' exact render={(props) => (<>
+          {showAddTask && <AddTask onAdd={addTask} />}
+          {tasks.length > 0 ? <Tasks tasks={tasks} onToggle={toggleReminder} onDelete={deleteTask} /> : <h3>No Tasks to show</h3>}
+        </>)} />
+        <Route path='/about' component={About} />
+        <Footer />
+      </div>
+    </Router >
   );
 }
 

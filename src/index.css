@@ -111,3 +111,16 @@ body {
   display: block;
   width: 100%;
 }
+
+
+.about {
+  text-align: center;
+  padding: 20px 0;
+  margin: 10px 0;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px 0;
+  margin: 10px 0;
+}
