@@ -1,3 +1,4 @@
+
 const jsonServer = require('json-server');
 const server = jsonServer.create();
 const routre = jsonServer.router('./db.json');
@@ -11,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 server.use(middlewares);
 
 server.use(jsonServer.rewriter({
-    '/api/*': '/$1'
+    '/tasks/*': '/$1'
 }))
 
 server.use(router);
