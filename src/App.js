@@ -1,5 +1,5 @@
 import Header from './components/Header'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
 
@@ -15,31 +15,32 @@ const App = () => {
   // we instead use setTask and recreate it
   const [showAddTask, setShowAddTask] = useState(false)
   //eslint-disable-next-line
-  const [tasks, setTasks] = useState(
-    [
-      {
-        id: 1,
-        text: "Doctors Appointment",
-        day: "Feb 5th at 2:30pm",
-        reminder: true,
-      },
-      {
-        id: 2,
-        text: "Meeting at School",
-        day: "Feb 6th at 1:30pm",
-        reminder: true,
-      },
-      {
-        id: 3,
-        text: "Food Shopping",
-        day: "Feb 5th at 2:30pm",
-        reminder: false,
-      },
-    ]
-  )
+  const [tasks, setTasks] = useState([])
+
+  // fetch data from backend
+  useEffect(() => {
+    const getTasks = async () => {
+      const tasksFromServer = await fetchTasks()
+      setTasks(tasksFromServer)
+    }
+    getTasks()
+  }, [])
+
+  // fetch data 
+  const fetchTasks = async () => {
+    const res = await fetch('http://localhost:5000/tasks/')
+    const data = await res.json()
+    // console.log(data)
+    return data
+  }
 
   // delete a task
-  const deleteTask = (id) => {
+  const deleteTask = async (id) => {
+    // simple request to delete 
+    await fetch(`http://localhost:5000/tasks/${id}`, {
+      method: 'DELETE',
+    })
+
     setTasks(tasks.filter((task) => task.id !== id))
   }
 
@@ -68,7 +69,7 @@ const App = () => {
     <div className="container">
       <Header onClick={toggleAddTask} showPropAddTask={showAddTask} />
       {showAddTask && <AddTask onAdd={addTask} />}
-      {tasks.length > 0 ? <Tasks tasks={tasks} onToggle={toggleReminder} onDelete={deleteTask} /> : <h1>No Tasks</h1>}
+      {tasks.length > 0 ? <Tasks tasks={tasks} onToggle={toggleReminder} onDelete={deleteTask} /> : <h3>No Tasks to show</h3>}
     </div>
   );
 }
