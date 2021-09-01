@@ -1,10 +1,23 @@
+import Header from './components/Header'
+// import React from 'react'
 
-function App() {
+// lmbda 
+const App = () => {
   return (
-    <div className="App">
-      <h1> hello From Ahmed Abd ElGhany Using React Js</h1>
+    <div className="container">
+      <Header title={15} />
     </div>
   );
 }
+
+
+// this is just for using classes as view model
+
+// class App extends React.Component {
+//   render() {
+//     return <h1>Hello From Class </h1>
+//   }
+// }
+
 
 export default App;
