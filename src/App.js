@@ -13,7 +13,7 @@ import AddTask from './components/AddTask'
 const App = () => {
   // we wont use .push as state is immutable 
   // we instead use setTask and recreate it
-
+  const [showAddTask, setShowAddTask] = useState(false)
   //eslint-disable-next-line
   const [tasks, setTasks] = useState(
     [
@@ -59,10 +59,15 @@ const App = () => {
     setTasks([...tasks, newTask])
   }
 
+  // show or hide add Task
+  const toggleAddTask = () => {
+    setShowAddTask(!showAddTask)
+  }
+
   return (
     <div className="container">
-      <Header />
-      <AddTask onAdd={addTask} />
+      <Header onClick={toggleAddTask} showPropAddTask={showAddTask} />
+      {showAddTask && <AddTask onAdd={addTask} />}
       {tasks.length > 0 ? <Tasks tasks={tasks} onToggle={toggleReminder} onDelete={deleteTask} /> : <h1>No Tasks</h1>}
     </div>
   );
