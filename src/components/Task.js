@@ -1,12 +1,11 @@
+import { FaTimes } from 'react-icons/fa'
 
-
-const Task = ({ tasks }) => {
+const Task = ({ task, onDelete }) => {
     return (
-        <>
-            {tasks.map((task) => (
-                <h3 key={task.id}>{task.text}</h3>
-            ))}
-        </>
+        <div className='task'>
+            <h3 key={task.id}>{task.text}<FaTimes onClick={() => onDelete(task.id)} style={{ color: 'red' }} /></h3>
+            <p>{task.day}</p>
+        </div>
     )
 }
 

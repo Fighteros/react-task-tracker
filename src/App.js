@@ -1,6 +1,10 @@
 import Header from './components/Header'
-import Task from './components/Task'
 import { useState } from 'react';
+import Tasks from './components/Tasks'
+
+
+/* events are stored in the App.js */
+
 
 // import React from 'react'
 
@@ -8,6 +12,8 @@ import { useState } from 'react';
 const App = () => {
   // we wont use .push as state is immutable 
   // we instead use setTask and recreate it
+
+  //eslint-disable-next-line
   const [tasks, setTasks] = useState(
     [
       {
@@ -30,10 +36,16 @@ const App = () => {
       },
     ]
   )
+
+  // delete a task
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id))
+  }
+
   return (
     <div className="container">
       <Header />
-      <Task tasks={tasks} />
+      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} /> : <h1>No Tasks</h1>}
     </div>
   );
 }
