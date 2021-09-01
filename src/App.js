@@ -1,6 +1,7 @@
 import Header from './components/Header'
 import { useState } from 'react';
 import Tasks from './components/Tasks'
+import AddTask from './components/AddTask'
 
 
 /* events are stored in the App.js */
@@ -49,9 +50,19 @@ const App = () => {
     )
   }
 
+  // add task
+  const addTask = (task) => {
+    // console.log(task)
+    // to get unique random number
+    const id = Math.floor(Math.random() * 10000) + 1
+    const newTask = { id, ...task }
+    setTasks([...tasks, newTask])
+  }
+
   return (
     <div className="container">
       <Header />
+      <AddTask onAdd={addTask} />
       {tasks.length > 0 ? <Tasks tasks={tasks} onToggle={toggleReminder} onDelete={deleteTask} /> : <h1>No Tasks</h1>}
     </div>
   );
