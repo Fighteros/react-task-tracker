@@ -1,4 +1,5 @@
 import Header from './components/Header'
+import Task from './components/Task'
 // import React from 'react'
 
 // lmbda 
@@ -6,6 +7,7 @@ const App = () => {
   return (
     <div className="container">
       <Header />
+      <Task />
     </div>
   );
 }
